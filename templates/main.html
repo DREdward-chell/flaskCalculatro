@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/styles.css') }}>
+    <title>Calculatro</title>
+</head>
+<body>
+<form action="/" method="post">
+    <div>
+        <label>
+            <input name="equation" type="text" placeholder="enter an equation" value="{{ equation }}">
+        </label>
+    </div>
+    <div>
+        <input name="solveButton" type="submit" value="solve">
+        <label>{{ result }}</label>
+    </div>
+</form>
+</body>
+</html>
