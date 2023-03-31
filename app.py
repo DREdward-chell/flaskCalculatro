@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request
-from calculatro import WolframEvaluator
+from flask import Flask, render_template, redirect, request, url_for
+from Skeletons import WolframEvaluator
+
 app = Flask(__name__)
 
 params = {
@@ -14,11 +15,15 @@ def hello_world():
     global params, wolframSession
     if request.method == 'POST':
         if request.form.get('solveButton') == 'solve':
-            params['equation'] = request.form.get('equation')
-            params['result'] = wolframSession.solveEquation(params['equation'], stringFormat=True)
+            return redirect('/fff')
     elif request.method == 'GET':
-        pass
+        params['result'] = ''
+        params['equation'] = ''
     return render_template('main.html', **params)
+
+@app.route('/fff', methods=['GET', 'POST'])
+def page2():
+    return render_template('geometryDescription.html')
 
 if __name__ == '__main__':
     app.run()

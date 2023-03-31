@@ -7,10 +7,6 @@ class WolframEvaluator:
         )
         self.languageSession.start()
 
-    def start(self) -> None:
-        self.languageSession.start()
-        return None
-
     def end(self) -> None:
         self.languageSession.terminate()
         return None
@@ -28,3 +24,23 @@ class WolframEvaluator:
         expression: str = f'SolveValues[{equation}, {variables}]'
         if stringFormat is True: expression = f'ToString[{expression}]'
         return self.evaluate(expression)
+
+    def plot2d(self,
+               func: str,
+               xrange: tuple[float, float],
+               __format__: str = '.jpg') -> None:
+        __start__, __end__ = map(str, xrange)
+        self.evaluate(f'Export["./cache/Plotting/plot2d{__format__}", '
+                      f'Plot[{func}, {"{x, " + __start__ + ", " + __end__ + "}"}]]')
+        return None
+
+    def plot3d(self,
+               func: str,
+               xrange: tuple[float, float],
+               yrange: tuple[float, float],
+               __format__: str = '.jpg') -> None:
+        __xstart__, __xend__ = map(str, xrange)
+        __ystart__, __yend__ = map(str, yrange)
+        self.evaluate(f'Export["./cache/Plotting/plot3d{__format__}", '
+                      f'Plot3D[{func}, {"{x, " + __xstart__ + ", " + __xend__ + "}"}, '
+                      f'{"{y, " + __ystart__ + ", " + __yend__ + "}"}]]')
