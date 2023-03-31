@@ -15,7 +15,7 @@ def hello_world():
     global params, wolframSession
     if request.method == 'POST':
         if request.form.get('solveButton') == 'solve':
-            return redirect('/fff')
+            params['result'] = wolframSession.solveEquation(request.form.get('equation'), stringFormat=True)
     elif request.method == 'GET':
         params['result'] = ''
         params['equation'] = ''
