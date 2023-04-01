@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request, url_for
-from Skeletons import WolframEvaluator
+from skeletons import WolframEvaluator
 
 app = Flask(__name__)
 
