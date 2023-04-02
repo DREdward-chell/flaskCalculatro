@@ -8,22 +8,17 @@ params = {
     'equation': ''
 }
 
-wolframSession = WolframEvaluator()
+@app.route('/')
+def enter():
+    return redirect('/main')
 
-@app.route('/', methods=['GET', 'POST'])
-def hello_world():
-    global params, wolframSession
-    if request.method == 'POST':
-        if request.form.get('solveButton') == 'solve':
-            params['result'] = wolframSession.solveEquation(request.form.get('equation'), stringFormat=True)
-    elif request.method == 'GET':
-        params['result'] = ''
-        params['equation'] = ''
-    return render_template('main.html', **params)
+@app.route('/main')
+def main():
+    return render_template('main.html')
 
-@app.route('/fff', methods=['GET', 'POST'])
-def page2():
-    return render_template('geometryDescription.html')
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 if __name__ == '__main__':
     app.run()

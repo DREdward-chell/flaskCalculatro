@@ -1,0 +1,53 @@
+html { height: 100%; background: #141e30; }
+@font-face { font-family: Comfortaa; src: url("fonts/comfortaa/Comfortaa-VariableFont_wght.ttf"); }
+body { font-family: Comfortaa, serif; }
+
+.solver-box {
+    margin: auto;
+    width: 80%;
+    padding: 70px;
+    background: rgba(0, 0, 0, .5);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px;
+}
+
+.solver-box h2 {
+    margin: 0 0 50px;
+    color: whitesmoke;
+    text-align: left;
+}
+
+.solver-box .input-box {
+    position: relative;
+}
+
+.solver-box .input-box textarea {
+    overflow: hidden;
+    resize: block;
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    margin-bottom: 30px;
+    border-bottom: 1px solid whitesmoke;
+    padding: 10px 0;
+    font-size: 16px;
+    color: whitesmoke;
+}
+
+.solver-box .input-box label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: whitesmoke;
+    padding: 10px 0;
+    font-size: 16px;
+    transition: .5s;
+}
+
+.solver-box .input-box textarea:focus ~ label,
+.solver-box .input-box textarea:valid ~ label {
+    top: -30px;
+    color: aqua;
+    font-size: 12px;
+}
