@@ -1,0 +1,47 @@
+html { height: 100%; background: #141e30; }
+@font-face { font-family: Comfortaa; src: url("fonts/comfortaa/Comfortaa-VariableFont_wght.ttf"); }
+body { font-family: Comfortaa, serif; }
+
+.basic {width:960px; min-height:500px; margin:0 auto; padding:20px 20px 20px 20px; background:#fff;}
+
+.head-site {height:50px;}
+
+details {
+    text-align: right;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 0.5em 0.5em 0;
+    margin: auto;
+    width: 30%;
+    padding: 70px;
+    background: rgba(0, 0, 0, .5);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px;
+}
+
+summary {
+    font-weight: bold;
+    margin: -0.5em -0.5em 0;
+    padding: 0.5em;
+}
+
+details[open] {
+    padding: 0.5em;
+    transition: .5s;
+}
+
+details[open] summary {
+    border-bottom: 1px solid #aaa;
+    margin-bottom: 0.5em;
+}
+
+.content {width:960px; float:center; padding:20px 0 0 0; }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background: aqua;
+  border-radius: 5px;
+  border-color: transparent;
+}
+
