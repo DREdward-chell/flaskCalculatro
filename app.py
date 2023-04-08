@@ -14,7 +14,7 @@ def enter():
 
 @app.route('/main')
 def main():
-    return render_template('main.html')
+    return render_template('home2.html')
 
 @app.route('/login')
 def login():
