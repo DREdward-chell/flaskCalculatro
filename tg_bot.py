@@ -36,8 +36,10 @@ def main():
 
 
 async def equation(update, context):
-    user_says = " ".join(context.args)
-    update.message.reply_text("You said: " + user_says)
+    user_says = context.args.split(':')
+    #volfram
+    anwser = 'res'
+    update.message.reply_text("Anwser: " + anwser)
 
 
 async def close_keyboard(update, context):
@@ -57,8 +59,7 @@ async def open_keyboard(update, context):
 async def help(update, context):
     await update.message.reply_text(
         "Мои функции:"
-        "/equation - решаю уравнения(пример записи"
-        "/text_from_p - сканирую текст с картинки и отправляю вам"
+        "/equation - решаю уравнения(пример записи /equation 2x + 4 = 0:x"
         "/close - закрыть функциональнок меню"
         "/open - открыть функциональнок меню")
 
