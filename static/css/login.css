@@ -1,20 +1,19 @@
-html { height: 100%; background: #141e30; }
-@font-face { font-family: Comfortaa; src: url("fonts/comfortaa/Comfortaa-VariableFont_wght.ttf"); }
-body { font-family: Comfortaa, serif; }
-
+/* .web-element extension */
 .login-box {
+    /* position */
     margin: auto;
     width: 30%;
     padding: 70px;
+    /* appearance */
     background: rgba(0, 0, 0, .5);
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    /* content */
     border-radius: 10px;
 }
 
+/* simple styling */
 .login-box h2 {
-    margin: 0 0 30px;
-    padding: 0;
-    color: #fff;
+    margin-bottom: 30px;
     text-align: center;
 }
 
@@ -22,26 +21,31 @@ body { font-family: Comfortaa, serif; }
     position: relative;
 }
 
+/* input style */
 .login-box .user-box input {
     width: 100%;
     padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
     margin-bottom: 30px;
+
     border: none;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid whitesmoke;
     outline: none;
     background: transparent;
+
+    font-size: 16px;
+    color: whitesmoke;
 }
 
 .login-box .user-box label {
-    position: absolute;
+    pointer-events: none;
+    padding: 10px 0;
     top: 0;
     left: 0;
-    padding: 10px 0;
+
     font-size: 16px;
-    color: #fff;
-    pointer-events: none;
+    color: whitesmoke;
+
+    position: absolute;
     transition: .5s;
 }
 
@@ -49,31 +53,36 @@ body { font-family: Comfortaa, serif; }
 .login-box .user-box input:valid ~ label {
     top: -20px;
     left: 0;
-    color: #03e9f4;
+
+    color: aqua;
     font-size: 12px;
 }
 
 .login-box form input[type="submit"] {
+    padding: 10px 20px;
+    margin-top: 40px;
+    overflow: hidden;
+
     background: transparent;
     border-radius: 5px;
     border-width: 2px;
-    border-color: #03e9f4;
-    position: relative;
+    border-color: aqua;
     display: inline-block;
-    padding: 10px 20px;
-    color: #03e9f4;
+
     font-size: 16px;
-    text-decoration: none;
     text-transform: uppercase;
-    overflow: hidden;
+    color: aqua;
+    letter-spacing: 4px;
+    position: relative;
+
     transition: .5s;
-    margin-top: 40px;
-    letter-spacing: 4px
 }
 
 .login-box input[type="submit"]:hover {
-    background: #03e9f4;
-    color: #fff;
+    background: aqua;
     border-radius: 5px;
     border-color: transparent;
+    box-shadow: 0 0 0 aqua, 0 0 15px aqua, 0 0 25px aqua, 0 0 50px aqua;
+
+    color: whitesmoke;
 }
