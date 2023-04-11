@@ -51,10 +51,9 @@ class WolframEvaluator:
     # plot a 2D function
     def plot2d(self,
                func: str,
-               xrange: tuple[float, float],
-               __format__: str = '.jpg') -> None:
+               xrange: tuple[float, float]) -> None:
         __start__, __end__ = map(str, xrange)
-        self.evaluate(f'Export["./cache/Plotting/plot2d{__format__}", '
+        self.evaluate(f'Export["./cache/plotting/2DPLOT.png", '
                       f'Plot[{func}, {"{x, " + __start__ + ", " + __end__ + "}"}]]')
         return None
 
@@ -62,10 +61,9 @@ class WolframEvaluator:
     def plot3d(self,
                func: str,
                xrange: tuple[float, float],
-               yrange: tuple[float, float],
-               __format__: str = '.jpg') -> None:
+               yrange: tuple[float, float]) -> None:
         __xstart__, __xend__ = map(str, xrange)
         __ystart__, __yend__ = map(str, yrange)
-        self.evaluate(f'Export["./cache/Plotting/plot3d{__format__}", '
+        self.evaluate(f'Export["./cache/Plotting/3DPLOT.obj", '
                       f'Plot3D[{func}, {"{x, " + __xstart__ + ", " + __xend__ + "}"}, '
                       f'{"{y, " + __ystart__ + ", " + __yend__ + "}"}]]')

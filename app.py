@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request, url_for
-from skeletons import WolframEvaluator
+from skeletons import WolframEvaluator, UserManager
 
 app = Flask(__name__)
 
@@ -16,7 +16,11 @@ def enter():
 def main():
     return render_template('home2.html')
 
-@app.route('/login')
+@app.route('/main/solve-equation')
+def solve():
+    return render_template('equation.html', num=5)
+
+@app.route('/main/login')
 def login():
     return render_template('login.html')
 

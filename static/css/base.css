@@ -1,0 +1,73 @@
+/* connecting custom font */
+@font-face {
+    font-family: Comfortaa;
+    src: url("fonts/comfortaa/Comfortaa-VariableFont_wght.ttf");
+}
+
+/* defining background for all pages */
+html {
+    height: 100%;
+    background: #141e30;
+}
+
+/* defining font for all pages */
+body {
+    font-family: Comfortaa, serif;
+    color: whitesmoke;
+}
+
+/* simple div class for all webpage elements */
+.web-element {
+    /* position */
+    margin: 10px auto auto auto;
+    width: 80%;
+    padding: 70px;
+    /* appearance */
+    background: rgba(0, 0, 0, .5);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px;
+}
+
+/* headers in web-elements */
+.web-element h1 {
+    /* position */
+    margin-top: 30px;
+    /* text styling */
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 40px;
+}
+
+/* paragraph class for descriptions */
+.web-element .description {
+    font-size: 16px;
+    text-align: center;
+    overflow-wrap: normal;
+}
+
+/**/
+.web-element .main-article {
+    padding: 1rem;
+    margin: 100px;
+    background-color: rgba(0, 0, 0, .7);
+    border-radius: 10px;
+    width: fit-content;
+}
+
+.web-element .main-article .sub-article {
+    margin: 15px;
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: #141e30;
+}
+
+.web-element .main-article h2 {
+
+}
+
+/* div class for positioning buttons in a grid */
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}

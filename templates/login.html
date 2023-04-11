@@ -1,6 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href={{ url_for('static', filename='css/base.css') }}>
     <link type="text/css" rel="stylesheet" href={{ url_for('static', filename='css/login.css') }}>
     <title>Login</title>
 </head>
@@ -9,11 +10,11 @@
     <h2>Login</h2>
     <form>
         <div class="user-box">
-            <input type="text" name="" required="" title="">
+            <input type="text" name="user" required="required" title="">
             <label>Username or email</label>
         </div>
         <div class="user-box">
-            <input type="password" name="" required="" title="">
+            <input type="password" name="key" required="required" title="">
             <label>Password</label>
         </div>
         <input type="submit" value="Submit">
