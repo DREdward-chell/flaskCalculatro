@@ -2,20 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/main.css') }}>
+    <link type="text/css" rel="stylesheet" href={{ url_for('static', filename='css/base.css') }}>
     <title>Calculatro</title>
 </head>
 <body>
-<div>
-    <form class="solver-box">
-        <div class="input-box">
-            <h2>Solve equation</h2>
-        </div>
-        <div class="input-box">
-            <textarea required="required"></textarea>
-            <label>Equation</label>
-        </div>
-    </form>
+{# mainpage #}
+<div class="web-element">
+    <h1>Calculatro</h1>
+    <p class="description">A powerful tool for solving different tasks</p>
+    <article style="margin: 100px 0 0 100px" class="main-article">
+        <h2>What can Calculatro do?</h2>
+        <article class="sub-article">
+            <h3>Solving equations</h3>
+            <p>Solve any equation using powerful Wolfram Language</p>
+        </article>
+        <article class="sub-article">
+            <h3>2D plotting</h3>
+            <p>Plot a function or equation graphic with Wolfram Language</p>
+        </article>
+        <article class="sub-article">
+            <h3>3D plotting</h3>
+            <p>Similar to 2D plotting, but in 3D</p>
+        </article>
+        <article class="sub-article">
+            <h3>Chemistry</h3>
+            <p></p>
+        </article>
+        <article class="sub-article">
+            <h3>Physics</h3>
+        </article>
+        <article class="sub-article">
+            <h3>Text analysis</h3>
+        </article>
+    </article>
 </div>
 </body>
 </html>
