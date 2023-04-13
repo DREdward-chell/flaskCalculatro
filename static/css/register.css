@@ -1,0 +1,88 @@
+/* .web-element extension */
+.login-box {
+    /* position */
+    margin: auto;
+    width: 30%;
+    padding: 70px;
+    /* appearance */
+    background: rgba(0, 0, 0, .5);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    /* content */
+    border-radius: 10px;
+}
+
+/* simple styling */
+.login-box h2 {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.login-box .user-box {
+    position: relative;
+}
+
+/* input style */
+.login-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    margin-bottom: 30px;
+
+    border: none;
+    border-bottom: 1px solid whitesmoke;
+    outline: none;
+    background: transparent;
+
+    font-size: 16px;
+    color: whitesmoke;
+}
+
+.login-box .user-box label {
+    pointer-events: none;
+    padding: 10px 0;
+    top: 0;
+    left: 0;
+
+    font-size: 16px;
+    color: whitesmoke;
+
+    position: absolute;
+    transition: .5s;
+}
+
+.login-box .user-box input:focus ~ label,
+.login-box .user-box input:valid ~ label {
+    top: -20px;
+    left: 0;
+
+    color: aqua;
+    font-size: 12px;
+}
+
+.login-box form input[type="submit"] {
+    padding: 10px 20px;
+    margin-top: 40px;
+    overflow: hidden;
+
+    background: transparent;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: aqua;
+    display: inline-block;
+
+    font-size: 16px;
+    text-transform: uppercase;
+    color: aqua;
+    letter-spacing: 4px;
+    position: relative;
+
+    transition: .5s;
+}
+
+.login-box input[type="submit"]:hover {
+    background: aqua;
+    border-radius: 5px;
+    border-color: transparent;
+    box-shadow: 0 0 0 aqua, 0 0 15px aqua, 0 0 25px aqua, 0 0 50px aqua;
+
+    color: whitesmoke;
+}
