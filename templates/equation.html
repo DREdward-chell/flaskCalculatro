@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/base.css') }}>
     <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/solve.css') }}>
     <title>Calculatro</title>
 </head>
@@ -12,7 +13,7 @@
             <h2>Solve equation</h2>
         </div>
         <div class="input-box">
-            <textarea required="required" onkeyup="this.style.height='16px'; this.style.height = this.scrollHeight + 'px';" name="equation"></textarea>
+            <textarea required="required" onkeyup="this.style.height='13px'; this.style.height = this.scrollHeight - 3 + 'px';" name="equation">{{ equation }}</textarea>
             <label>Equation</label>
         </div>
         <div>
@@ -20,7 +21,8 @@
         </div>
         <div class="output">
             <label>Result:</label>
-            <textarea onkeyup="this.style.height='16px'; this.style.height = this.scrollHeight + 'px';">{{ equation_result }}</textarea>
+            <textarea onkeyup="this.style.height='16px'; this.style.height = this.scrollHeight + 'px';" readonly="readonly"
+            onfocus="this.style.height='16px'; this.style.height = this.scrollHeight + 'px';">{{ equation_result }}</textarea>
         </div>
     </form>
 </div>

@@ -59,7 +59,7 @@ class WolframEvaluator:
         __start__, __end__ = map(str, xrange)
         self.evaluate(f'Export["./cache/plotting/2DPLOT.png", '
                       f'Plot[{func}, {"{x, " + __start__ + ", " + __end__ + "}"}]]')
-        return
+        return open('./cache/plotting/2DPLOT.png')
 
     # plot a 3D function
     def plot3d(self,
