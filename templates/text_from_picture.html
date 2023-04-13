@@ -2,13 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Text from pictire</title>
+    <link type="text/css" rel="stylesheet" href={{ url_for('static', filename='css/base.css') }}>
+    <link type="text/css" rel="stylesheet" href={{ url_for('static', filename='css/login.css') }}>
+    <title>Calculatro</title>
 </head>
 <body>
-<label for="photo">choose photo</label>
+<label for="photo">Choose photo</label>
 <input type="file" class="form-control-file" id="photo" name="file">
-<p><input type="submit" value="anwser"></p>
-<h2>Result</h2>
+<p><input type="submit" value="Anwser"></p>
+<div class="output">
+            <label>Result:</label>
+            <textarea onkeyup="this.style.height='16px'; this.style.height = this.scrollHeight + 'px';" readonly="readonly"
+            onfocus="this.style.height='16px'; this.style.height = this.scrollHeight + 'px';">{{ equation_result }}</textarea>
+        </div>
 <p><textarea></textarea></p>
 </body>
 </html>
