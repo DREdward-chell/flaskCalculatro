@@ -1,40 +1,29 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href={{ url_for('static', filename='css/base.css') }}>
-    <title>Calculatro</title>
+    <title>Home</title>
 </head>
 <body>
-{# mainpage #}
-<div class="web-element">
-    <h1>Calculatro</h1>
-    <p class="description">A powerful tool for solving different tasks</p>
-    <article style="margin: 100px 0 0 100px" class="main-article">
-        <h2>What can Calculatro do?</h2>
-        <article class="sub-article">
-            <h3>Solving equations</h3>
-            <p>Solve any equation using powerful Wolfram Language</p>
-        </article>
-        <article class="sub-article">
-            <h3>2D plotting</h3>
-            <p>Plot a function or equation graphic with Wolfram Language</p>
-        </article>
-        <article class="sub-article">
-            <h3>3D plotting</h3>
-            <p>Similar to 2D plotting, but in 3D</p>
-        </article>
-        <article class="sub-article">
-            <h3>Chemistry</h3>
-            <p></p>
-        </article>
-        <article class="sub-article">
-            <h3>Physics</h3>
-        </article>
-        <article class="sub-article">
-            <h3>Text analysis</h3>
-        </article>
-    </article>
+<div class="login-box">
+    <h2>HOME PAGE</h2>
+    <form action="/calculatro/main" method="post">
+        <p><img src="/images/wolfr.png" alt="" width="40" height="40" aria-label="center" style="margin-right:40px;"/>
+        </p>
+        <div class="content">
+            <p class="text">This site was created to help schoolchildren who are too lazy to spend their time counting
+                or finding any answers. Our work for sponsored by: ... We invite you to try out the possibilities of our
+                site.
+            </p>
+        </div>
+        <div class="grid-container">
+            <input type="submit" name="equation" value="EQUATIONS">
+            <input type="submit" name="graphics" value="GRAPHICS">
+            <input type="submit" name="chemistry" value="CHEMISTRY">
+            <input type="submit" name="physics" value="PHYSICS">
+            <input type="submit" name="text_from_picture" value="TEXT FROM PICTURE">
+        </div>
+    </form>
 </div>
 </body>
 </html>

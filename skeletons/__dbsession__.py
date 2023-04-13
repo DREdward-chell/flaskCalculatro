@@ -1,4 +1,7 @@
 import sqlite3
+import typing
+
+Path = typing.TypeVar('Path', bound=typing.Callable[..., typing.Any])
 
 # users database manager
 class DBManager:
@@ -6,7 +9,7 @@ class DBManager:
     connection: sqlite3.Connection
     cursor: sqlite3.Cursor
 
-    def __init__(self, datasource: str) -> None:
+    def __init__(self, datasource: Path) -> None:
         self.connection = sqlite3.connect(datasource)
         self.cursor = self.connection.cursor()
         return
@@ -51,7 +54,11 @@ class UserManager(DBManager):
         self.delete(fromTable='USERS', where=f"EMAIL='{email}' AND PASSWORD='{password}' AND USERNAME='{username}'")
         return
 
-    def changeUserEmail(self, usename: str, password: str, newEmail: str) -> None:
+    def changeUserEmail(self, username: str, password: str, newEmail: str) -> None:
         self.update(table='USERS', columns=('EMAIL',), values=(newEmail,),
-                    where=f"USERNAME='{usename}' AND PASSWORD='{password}'")
+                    where=f"USERNAME='{username}' AND PASSWORD='{password}'")
         return
+
+    def changeUserPassword(self, username: str, password: str, newEmail: str) -> None:
+        self.update(table='USERS', columns=('EMAIL',), values=(newEmail,),
+                    where=f"USERNAME='{username}' AND PASSWORD='{password}'")

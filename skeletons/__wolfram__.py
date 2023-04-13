@@ -1,16 +1,19 @@
 from wolframclient.evaluation import WolframLanguageSession, WolframCloudSession, SecuredAuthenticationKey
 from wolframclient.exception import WolframKernelException
+import typing
+
+Path = typing.TypeVar('Path', bound=typing.Callable[..., typing.Any])
 
 # key name is 'FLASK'
 
-KEY = SecuredAuthenticationKey(
+KEY: SecuredAuthenticationKey = SecuredAuthenticationKey(
     'PaI8q6V4M6V7N1KsLeggf+vIJW4aHsKtUryk8oPdf1c=',
     'DdoLCpHcd9CvpuzIgI8Yq4ZbNLkTUQNa8R6Kw62HBSk='
 )
 
 # supporting class for easier evaluation of wolfram language
 class WolframEvaluator:
-    def __init__(self):
+    def __init__(self) -> None:
         global KEY
 
         # start new wolfram language session
@@ -25,11 +28,12 @@ class WolframEvaluator:
             self.languageSession: WolframCloudSession = WolframCloudSession(credentials=KEY)
             print("cloud")
             self.languageSession.start()
+        return
 
     # terminating the session
     def end(self) -> None:
         self.languageSession.terminate()
-        return None
+        return
 
     # evaluating WL expression
     def evaluate(self, expression: str) -> any:
@@ -55,7 +59,7 @@ class WolframEvaluator:
         __start__, __end__ = map(str, xrange)
         self.evaluate(f'Export["./cache/plotting/2DPLOT.png", '
                       f'Plot[{func}, {"{x, " + __start__ + ", " + __end__ + "}"}]]')
-        return None
+        return
 
     # plot a 3D function
     def plot3d(self,
@@ -67,3 +71,4 @@ class WolframEvaluator:
         self.evaluate(f'Export["./cache/Plotting/3DPLOT.obj", '
                       f'Plot3D[{func}, {"{x, " + __xstart__ + ", " + __xend__ + "}"}, '
                       f'{"{y, " + __ystart__ + ", " + __yend__ + "}"}]]')
+        return

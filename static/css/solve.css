@@ -62,3 +62,33 @@ body {
     color: aqua;
     font-size: 12px;
 }
+
+.solver-box input[type="submit"] {
+    border-radius: 10px;
+    border: 1px aqua;
+    outline: none;
+}
+
+.solver-box .output {
+    position: relative;
+}
+
+.solver-box .output textarea {
+    overflow: hidden;
+    resize: none;
+    width: 100%;
+    background: transparent;
+    border: 1px whitesmoke;
+    outline: aqua;
+    padding: 10px;
+    font-size: 16px;
+    color: whitesmoke;
+}
+
+.solver-box .output label {
+    margin-top: 10px;
+    position: relative;
+    color: whitesmoke;
+    padding: 10px 0;
+    font-size: 16px;
+}

@@ -2,21 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/main.css') }}>
+    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/solve.css') }}>
     <title>Calculatro</title>
 </head>
 <body>
 <div>
-    <form class="solver-box">
+    <form class="solver-box" action="/calculatro/solve-equation" method="post">
         <div class="input-box">
             <h2>Solve equation</h2>
         </div>
-        {% for _ in range(num) %}
         <div class="input-box">
-            <textarea required="required" onkeyup="this.style.height='16px'; this.style.height = this.scrollHeight + 'px';"></textarea>
+            <textarea required="required" onkeyup="this.style.height='16px'; this.style.height = this.scrollHeight + 'px';" name="equation"></textarea>
             <label>Equation</label>
         </div>
-        {% endfor %}
+        <div>
+            <input type="submit" name="solve" value="SOLVE">
+        </div>
+        <div class="output">
+            <label>Result:</label>
+            <textarea onkeyup="this.style.height='16px'; this.style.height = this.scrollHeight + 'px';">{{ equation_result }}</textarea>
+        </div>
     </form>
 </div>
 </body>
