@@ -4,6 +4,11 @@
     src: url("fonts/comfortaa/Comfortaa-VariableFont_wght.ttf");
 }
 
+@font-face {
+    font-family: JetBrainsMono;
+    src: url("fonts/jetbrains_mono/JetBrainsMono-ExtraBold.ttf");
+}
+
 /* defining background for all pages */
 html {
     height: 100%;
@@ -39,33 +44,85 @@ body {
     font-size: 40px;
 }
 
-/* paragraph class for descriptions */
-.web-element .description {
-    font-size: 16px;
-    text-align: center;
-    overflow-wrap: normal;
-}
-
-.web-element .main-article {
-    padding: 1rem;
-    margin: 100px;
-    background-color: rgba(0, 0, 0, .7);
-    border-radius: 10px;
-    width: fit-content;
-}
-
-.web-element .main-article .sub-article {
-    margin: 15px;
-    border-radius: 10px;
-    padding: 1rem;
-    background-color: #141e30;
-}
-
-/* sub-main web-element header */
-.web-element .main-article h2 {}
-
 /* div class for positioning buttons in a grid */
 .grid-container {
     display: grid;
+    margin: auto;
+    width: 70%;
     grid-template-columns: auto auto auto;
+}
+
+.grid-container input[type="submit"] {
+    padding: 10px 10px;
+    margin: 0 10px 10px 0px;
+}
+
+/* text input */
+.web-element .text-input {
+    position: relative;
+}
+
+.web-element .text-input input {
+    width: 100%;
+    padding: 10px 0;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid whitesmoke;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    color: whitesmoke;
+}
+
+/* naming for input */
+.web-element .text-input label {
+    pointer-events: none;
+    padding: 10px 0;
+    top: 0;
+    left: 0;
+    font-size: 16px;
+    color: whitesmoke;
+    position: absolute;
+    transition: .5s;
+}
+
+.web-element .text-input input:focus ~ label,
+.web-element .text-input input:valid ~ label {
+    top: -20px;
+    left: 0;
+
+    color: aqua;
+    font-size: 12px;
+}
+
+/* buttons style */
+.web-element input[type="submit"] {
+    padding: 10px 20px;
+    overflow: hidden;
+    background: transparent;
+    border-radius: 5px;
+    border-width: 2px;
+    border-color: aqua;
+    display: inline-block;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: aqua;
+    letter-spacing: 4px;
+    position: relative;
+    transition: .5s;
+}
+
+/* button animation */
+.web-element input[type="submit"]:hover {
+    background: aqua;
+    border-radius: 5px;
+    border-color: transparent;
+    box-shadow: 0 0 0 aqua, 0 0 15px aqua, 0 0 25px aqua, 0 0 50px aqua;
+    color: whitesmoke;
+}
+
+/* class for notes */
+.comment {
+    color: gray;
+    font-size: 11px;
 }

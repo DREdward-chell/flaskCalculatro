@@ -53,22 +53,40 @@ class WolframEvaluator:
         return self.evaluate(expression)
 
     # plot a 2D function
-    def plot2d(self,
-               func: str,
-               xrange: tuple[float, float]) -> None:
-        __start__, __end__ = map(str, xrange)
-        self.evaluate(f'Export["./cache/plotting/2DPLOT.png", '
+    def plot2d(self, func: str, xrange: tuple[str, str], path: Path) -> None:
+        __start__, __end__ = xrange
+        self.evaluate(f'Export["{path}", '
                       f'Plot[{func}, {"{x, " + __start__ + ", " + __end__ + "}"}]]')
-        return open('./cache/plotting/2DPLOT.png')
+        return
 
     # plot a 3D function
-    def plot3d(self,
-               func: str,
-               xrange: tuple[float, float],
-               yrange: tuple[float, float]) -> None:
-        __xstart__, __xend__ = map(str, xrange)
-        __ystart__, __yend__ = map(str, yrange)
+    def plot3d(self, func: str, xrange: tuple[str, str], yrange: tuple[str, str]) -> None:
+        __xstart__, __xend__ = xrange
+        __ystart__, __yend__ = yrange
         self.evaluate(f'Export["./cache/Plotting/3DPLOT.obj", '
                       f'Plot3D[{func}, {"{x, " + __xstart__ + ", " + __xend__ + "}"}, '
                       f'{"{y, " + __ystart__ + ", " + __yend__ + "}"}]]')
         return
+
+    # special plot function
+    def parametricPlot(self, func1: str, func2: str, urange: tuple[str, str], path: Path) -> None:
+        __start__, __end__ = urange
+        self.evaluate(f'Export["{path}", '
+                      f'ParametricPlot[{"{"}{func1}, {func2}{"}"}, {"{u, " + __start__ + ", " + __end__ + "}"}]]')
+        return
+
+    # balance chemical reaction
+    def reactionBalance(self, reaction: str) -> str:
+        return self.evaluate(f'ToString[ReactionBalance["{reaction}"]["EquationString"]]')
+
+    # count molecular mass
+    def molecularMass(self, molecule: str) -> str:
+        return self.evaluate(f'ToSrting[ChemicalFormula["{molecule}"]["MolecularMass"]]')
+
+    # get data about chemical element
+    def elementData(self, element: str, data: str) -> str:
+        return self.evaluate(f'ToString[ElementData["{element}", "{data}"]]')
+
+    # unit convertion
+    def unitConvert(self, value: int | float, from_unit: str, to_unit: str) -> str:
+        return self.evaluate(f'ToString[UnitConvert[Quantity[{value}, "{from_unit}"], "{to_unit}"]]')
