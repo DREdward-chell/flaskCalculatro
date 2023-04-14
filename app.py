@@ -1,4 +1,5 @@
-from flask import Flask, Blueprint, render_template, redirect, request, url_for, jsonify
+from werkzeug.exceptions import BadRequestKeyError
+from flask import Flask, render_template, redirect, request, url_for, jsonify
 from skeletons import WolframEvaluator, UserManager
 
 
@@ -17,36 +18,36 @@ params: dict[str, str] = {
 """-------------------------------------------------------API------------------------------------------------------"""
 
 
-api = Blueprint('API', __name__)
-
-# error handler
-@api.errorhandler(404)
-@api.errorhandler(405)
-def _api_error(_error):
-    if request.path.startswith('/calculatro/api/'):
-        return jsonify({'code': _error.code, 'error': str(_error)})
-    else:
-        return _error
-
-# equation solver
-@api.route('/calculatro/api/solve/<equation>')
-def solve_equation(equation):
-    global evaluator
-
-    try:
-        return jsonify(evaluator.solveEquation(equation, stringFormat=True))
-    except Exception as error:
-        return jsonify(error)
-
-# function plotter
-@api.route('/calculatro/api/plot/<function>&<start>&<end>')
-def plot_function(function, start, end):
-    global evaluator
-
-    try:
-        return jsonify(evaluator.plot2d(func=function, xrange=(start, end)))
-    except Exception as error:
-        return jsonify(error)
+# api = Blueprint('API', __name__)
+#
+# # error handler
+# @api.errorhandler(404)
+# @api.errorhandler(405)
+# def _api_error(_error):
+#     if request.path.startswith('/calculatro/api/'):
+#         return jsonify({'code': _error.code, 'error': str(_error)})
+#     else:
+#         return _error
+#
+# # equation solver
+# @api.route('/calculatro/api/solve/<equation>')
+# def solve_equation(equation):
+#     global evaluator
+#
+#     try:
+#         return jsonify(evaluator.solveEquation(equation, stringFormat=True))
+#     except Exception as error:
+#         return jsonify(error)
+#
+# # function plotter
+# @api.route('/calculatro/api/plot/<function>&<start>&<end>')
+# def plot_function(function, start, end):
+#     global evaluator
+#
+#     try:
+#         return jsonify(evaluator.plot2d(func=function, xrange=(start, end)))
+#     except Exception as error:
+#         return jsonify(error)
 
 
 """------------------------------------------------WEB-APPLICATION------------------------------------------------"""
@@ -61,25 +62,44 @@ def enter():
 # main-page
 @app.route('/calculatro/main', methods=['GET', 'POST'])
 def main():
+    print(request.method)
+
     if request.method == 'GET':
         return render_template('main.html')
 
     # redirect to different pages
     elif request.method == 'POST':
-        if request.form['equation'] == 'EQUATIONS':
-            return redirect('/calculatro/solve-equation')
+        try:
+            if request.form['equation'] == 'EQUATIONS':
+                return redirect('/calculatro/solve-equation')
+        except BadRequestKeyError:
+            ...
 
-        elif request.method['graphics'] == 'GRAPHICS':
-            return redirect('/calculatro/graphics')
+        try:
+            if request.method['graphics'] == 'GRAPHICS':
+                return redirect('/calculatro/graphics')
+        except BadRequestKeyError:
+            ...
 
-        elif request.method['chemistry'] == 'CHEMISTRY':
-            return redirect('/calculatro/molecule-plotting')
+        try:
+            if request.method['chemistry'] == 'CHEMISTRY':
+                return redirect('/calculatro/molecule-plotting')
+        except BadRequestKeyError:
+            ...
 
-        elif request.method['physics'] == 'PHYSICS':
-            return redirect('/calculatro/physical-calculations')
+        try:
+            if request.method['physics'] == 'PHYSICS':
+                return redirect('/calculatro/physical-calculations')
+        except BadRequestKeyError:
+            ...
 
-        elif request.method['text_from_picture'] == 'TEXT FROM PICTURE':
-            return redirect('/calculatro/text-from-picture')
+        try:
+            if request.method['text_from_picture'] == 'TEXT FROM PICTURE':
+                return redirect('/calculatro/text-from-picture')
+        except BadRequestKeyError:
+            ...
+
+    return render_template('main.html')
 
 
 # equation solver
@@ -88,14 +108,26 @@ def solve():
     global evaluator, params
 
     if request.method == 'GET':
-        ...
+        return render_template('equation.html', **params)
 
     elif request.method == 'POST':
 
-        if request.form['solve'] == 'SOLVE':
-            params['equation'] = request.form['equation'].strip().replace('\n', '')
-            params['equation_result'] = evaluator.\
-                solveEquation(params['equation'], stringFormat=True).replace('{', '[').replace('}', ']')
+        try:
+            if request.form['back'] == 'BACK TO MAIN PAGE':
+                print('on back')
+                return redirect('/calculatro/main')
+        except BadRequestKeyError:
+            ...
+
+        try:
+            if request.form['solve'] == 'SOLVE':
+                print('on solve')
+                params['equation'] = request.form['expression'].strip().replace('\n', '')
+                params['equation_result'] = evaluator.\
+                    solveEquation(params['equation'], stringFormat=True).replace('{', '[').replace('}', ']')
+                return render_template('equation.html', **params)
+        except BadRequestKeyError:
+            ...
 
     return render_template('equation.html', **params)
 

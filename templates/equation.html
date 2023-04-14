@@ -13,7 +13,7 @@
             <h2>Solve equation</h2>
         </div>
         <div class="input-box">
-            <textarea required="required" onkeyup="this.style.height='13px'; this.style.height = this.scrollHeight - 3 + 'px';" name="equation">{{ equation }}</textarea>
+            <textarea required="required" onkeyup="this.style.height='13px'; this.style.height = this.scrollHeight - 3 + 'px';" name="expression">{{ equation }}</textarea>
             <label>Equation</label>
         </div>
         <div>
@@ -23,6 +23,13 @@
             <label>Result:</label>
             <textarea onkeyup="this.style.height='16px'; this.style.height = this.scrollHeight + 'px';" readonly="readonly"
             onfocus="this.style.height='16px'; this.style.height = this.scrollHeight + 'px';">{{ equation_result }}</textarea>
+        </div>
+    </form>
+</div>
+<div>
+    <form class="solver-box" action="/calculatro/solve-equation" method="post">
+        <div>
+            <input type="submit" name="back" value="BACK TO MAIN PAGE" formmethod="post">
         </div>
     </form>
 </div>
