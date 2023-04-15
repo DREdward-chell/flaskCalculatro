@@ -206,6 +206,11 @@ def login():
     return render_template('login.html')
 
 
+@app.route('/calculatro/help')
+def login():
+    return render_template('help.html')
+
+
 """------------------------------------------------------START-----------------------------------------------------"""
 
 
