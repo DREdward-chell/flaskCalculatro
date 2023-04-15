@@ -10,22 +10,29 @@
     <h2>Register</h2>
     <form>
         <div class="user-box">
-            <input type="text" name="user" required="required" title="">
+            <input type="text" name="username" required="required" title="">
             <label>Username</label>
         </div>
         <div class="user-box">
-            <input type="text" name="user" required="required" title="">
+            <input type="text" name="email" required="required" title="">
             <label>Email</label>
         </div>
         <div class="user-box">
-            <input type="password" name="key" required="required" title="">
+            <input type="password" name="password" required="required" title="">
             <label>Password</label>
         </div>
         <div class="user-box">
-            <input type="password" name="key" required="required" title="">
+            <input type="password" name="confirm" required="required" title="">
             <label>Confirm password</label>
         </div>
-        <input type="submit" value="Register" class="submit-button">
+        <input type="submit" name="register" value="REGISTER" class="submit-button">
+    </form>
+</div>
+<div style="margin-top: 50px">
+    <form class="web-element" action="/calculatro/register" method="post" style="width: fit-content; alignment: left">
+        <div>
+            <input type="submit" name="back" value="BACK TO MAIN PAGE">
+        </div>
     </form>
 </div>
 </body>

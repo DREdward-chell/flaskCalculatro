@@ -44,6 +44,18 @@ body {
     font-size: 40px;
 }
 
+.web-element code {
+    font-family: JetBrainsMono;
+    font-size: 20px;
+    color: aqua;
+    background: transparent;
+    margin-left: 10px;
+}
+
+.web-element .help p {
+    font-size: 30px;
+}
+
 /* div class for positioning buttons in a grid */
 .grid-container {
     display: grid;

@@ -2,27 +2,34 @@
 <head>
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href={{ url_for('static', filename='css/base.css') }}>
-    <title>Home</title>
+    <title>Calculatro home</title>
 </head>
 <body>
 <div class="web-element">
     <h2>CALCULATRO</h2>
     <form action="/calculatro/main" method="post">
         <div class="content">
-            <p class="text"></p>
+            <p class="comment">Powerful computation tool</p>
         </div>
         <div class="grid-container" style="margin-top: 50px">
-            <input type="submit" name="equation" value="EQUATIONS">
+            <input type="submit" name="maths" value="MATHEMATICS">
             <input type="submit" name="graphics" value="GRAPHICS">
             <input type="submit" name="chemistry" value="CHEMISTRY">
             <input type="submit" name="physics" value="PHYSICS">
             <input type="submit" name="text" value="TEXT">
         </div>
+        <div style="margin-top: 100px">
+            <input type="submit" name="login" value="LOGIN">
+            <input type="submit" name="register" value="REGISTER">
+        </div>
     </form>
 </div>
-<div class="web-element" style="margin-top: 50px">
-    <h2>ABOUT US</h2>
-    <p></p>
+<div style="margin-top: 50px">
+    <form class="web-element" action="/calculatro/main" method="post" style="width: fit-content; alignment: left">
+        <div>
+            <input type="submit" name="help" value="HELP">
+        </div>
+    </form>
 </div>
 </body>
 </html>

@@ -38,7 +38,6 @@
 /* special textarea output */
 .solver-box .output {
     position: relative;
-    margin-top: 70px;
 }
 
 .solver-box .output textarea {

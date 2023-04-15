@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href={{ url_for('static', filename='css/base.css') }}>
+    <link type="text/css" rel="stylesheet" href={{ url_for('static', filename='css/maths.css') }}>
+    <title>Calculatro</title>
+</head>
+<body>
+<div class="web-element">
+    <form class="solver-box" action="/calculatro/text" method="post">
+        <h2>FIND ANSWER</h2>
+        <div class="input-box" style="margin-top: 50px">
+            <textarea required onkeyup="this.style.height='13px'; this.style.height = this.scrollHeight + 'px';" name="text">{{ text }}</textarea>
+            <label>Text</label>
+        </div>
+        <div class="input-box" style="margin-top: 50px">
+            <textarea required onkeyup="this.style.height='13px'; this.style.height = this.scrollHeight + 'px';" name="question">{{ question }}</textarea>
+            <label>Question</label>
+        </div>
+        <div style="margin-top: 50px">
+            <input type="submit" name="find" value="FIND ANSWER">
+        </div>
+        <div class="output" style="margin-top: 50px">
+            <label>Answer:</label>
+            <textarea onkeyup="this.style.height='13px'; this.style.height = this.scrollHeight + 'px';" readonly="readonly">{{ answer }}</textarea>
+        </div>
+    </form>
+</div>
+<div style="margin-top: 50px">
+    <form class="web-element" action="/calculatro/text" method="post" style="width: fit-content; alignment: left">
+        <div>
+            <input type="submit" name="back" value="BACK TO MAIN PAGE">
+        </div>
+    </form>
+</div>
+</body>
+</html>

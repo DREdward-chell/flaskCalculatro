@@ -3,23 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href={{ url_for('static', filename='css/base.css') }}>
-    <title>Home</title>
+    <title>Calculatro help</title>
 </head>
 <body>
-<div class="web-element">
-<h1>Справочник</h1>
-Если вы не знаете как правильно записывать уравнения или возникли какие-то трудности)
-<h2>Правильная запись алгебраических элементов</h2>
-<p>1)Все переменные пишутся на английском, строчными
-   2)= - равно* - умножение; / - деление; + - плюс; - - минус; ^ - степень; Sqrt[пер] - корень; ( ) - скобки;
-   Пример: 2x + 20 == 30; x^2 == 4</p>
-<h3>Химические уравнения</h3>
-<p>1)Элементы записываются также, как в периодической таблице химических элементов
-   2)Коэффициенты - обычные цифры
-   3) + - плюс; - - минус; -> - равно
-   Пример: H2SO4 - серная  кислота;
-   Ввод: Na + H2O -> NaOH + H2 Вывод: 2Na + 2H2O -> 2NaOH + H2</p>
-<p>Если будут претензии, то обращаться не к кому</p>
+<div class="web-element"><h1>Directory</h1></div>
+<div class="web-element" class="help" style="margin-top: 50px">
+    <h2>MATHEMATICS</h2>
+    <p>Basic arithmetic operands: plus -> +   minus -> -   multiply -> *   division|real -> /   power -> ^   equals -> =   scobes -> ()</p>
+    <p>Multiply sign can be removed</p>
+    <code>x * y = xy | x * (3 + x) = x(3 + x)</code>
+    <p style="margin-top: 30px">Mathematical functions: sin/cos x -> Sin/Cos[x]   tan/ctg x -> Tan/Cot[x]   √x -> Sqrt[x]</p>
+    <p>When using Sin/Cos/Tan/Cot don`t forget to put 'Degree' near degrees</p>
+    <code>Sin[30] -> error, Sin[30 Degree] -> 1/2</code>
+    <p>You can also use some mathematical constants such as Pi</p>
+    <code>Sin[2Pi] -> 0</code>
+</div>
+<div class="web-element" class="help" style="margin-top: 50px">
+    <h2>CHEMISTRY</h2>
+    <p>Chemical elements must be written in their short name</p>
+    <code>Hydrogen -> H Gold -> Au</code>
+    <p>And chemical formulas must be written in canonical form</p>
+    <code>water -> H2O sulfuric acid -> H2SO4</code>
+    <p style="margin-top: 30px">Reactions must be also written in canonical form</p>
+    <code>2K + 2H20 -> 2KOH + H2</code>
+</div>
+<div style="margin-top: 50px">
+    <form class="web-element" action="/calculatro/help" method="post" style="width: fit-content; alignment: left">
+        <div>
+            <input type="submit" name="back" value="BACK TO MAIN PAGE">
+        </div>
+    </form>
 </div>
 </body>
 </html>

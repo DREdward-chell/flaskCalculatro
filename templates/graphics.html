@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href={{ url_for('static', filename='css/base.css') }}>
     <link type="text/css" rel="stylesheet" href={{ url_for('static', filename='css/maths.css') }}>
-    <title>Calculatro</title>
+    <title>Calculatro graphics</title>
 </head>
 <body>
 <div class="web-element">
@@ -53,6 +53,13 @@
             {% if pgraph %}
             <img src={{ url_for('static', filename='images/parametric_graphic.png') }}>
             {% endif %}
+        </div>
+    </form>
+</div>
+<div style="margin-top: 50px">
+    <form class="web-element" action="/calculatro/plot-function" method="post" style="width: fit-content; alignment: left">
+        <div>
+            <input type="submit" name="back" value="BACK TO MAIN PAGE">
         </div>
     </form>
 </div>

@@ -75,6 +75,10 @@ class WolframEvaluator:
                       f'ParametricPlot[{"{"}{func1}, {func2}{"}"}, {"{u, " + __start__ + ", " + __end__ + "}"}]]')
         return
 
+    # plot a molecule
+    def moleculePlot(self, molecule: str, path: Path) -> None:
+        self.evaluate(f'Export["{path}", MoleculePlot["{molecule}"]]')
+
     # balance chemical reaction
     def reactionBalance(self, reaction: str) -> str:
         return self.evaluate(f'ToString[ReactionBalance["{reaction}"]["EquationString"]]')
@@ -90,3 +94,10 @@ class WolframEvaluator:
     # unit convertion
     def unitConvert(self, value: int | float, from_unit: str, to_unit: str) -> str:
         return self.evaluate(f'ToString[UnitConvert[Quantity[{value}, "{from_unit}"], "{to_unit}"]]')
+
+    # find sequence function
+    def findSequence(self, sequence: list) -> str:
+        return self.evaluate(f'ToString[FindSequenceFunction[{str(sequence).replace("[", "{").replace("]", "}")}, n]]')
+
+    def find_textural_answer(self, text: str, question: str) -> str:
+        return self.evaluate(f'ToString[FindTextualAnswer["{text}", "{question}"]]')

@@ -1,9 +1,12 @@
 from werkzeug.exceptions import BadRequestKeyError
 from flask import Flask, Blueprint, render_template, redirect, request, url_for, jsonify
-from skeletons import WolframEvaluator, UserManager
+from skeletons import WolframEvaluator, UserManager, UserAlreadyExistsError, UnknownUserError, WrongPassword
 
 
 evaluator: WolframEvaluator = WolframEvaluator()
+
+
+usersDB = UserManager(datasource='./database/database.sqlite')
 
 
 app: Flask = Flask(__name__)
@@ -23,7 +26,21 @@ params: dict[str, str] = {
     'pfunction2': '',
     'ustart': '',
     'uend': '',
-    'pgraph': False
+    'pgraph': False,
+
+    'reaction': '',
+    'balanced': '',
+    'molecule': '',
+    'molecule_plot': False,
+
+    'text': '',
+    'question': '',
+    'answer': '',
+
+    'email': '',
+    'username': '',
+    'password': '',
+    'eu': ''
 }
 
 
@@ -37,39 +54,39 @@ def clear_params():
 """-------------------------------------------------------API------------------------------------------------------"""
 
 
-api = Blueprint('API', __name__)
-
-
-# error handler
-@api.errorhandler(404)
-@api.errorhandler(405)
-def _api_error(_error):
-    if request.path.startswith('/calculatro/api/'):
-        return jsonify({'code': _error.code, 'error': str(_error)})
-    else:
-        return _error
-
-
-# equation solver
-@api.route('/calculatro/api/solve/<equation>')
-def solve_equation(equation):
-    global evaluator
-
-    try:
-        return jsonify(evaluator.solveEquation(equation, stringFormat=True))
-    except Exception as error:
-        return jsonify(error)
-
-
-# function plotter
-@api.route('/calculatro/api/plot/<function>&<start>&<end>')
-def plot_function(function, start, end):
-    global evaluator
-
-    try:
-        return jsonify(evaluator.plot2d(func=function, xrange=(start, end)))
-    except Exception as error:
-        return jsonify(error)
+# api = Blueprint('API', __name__)
+#
+#
+# # error handler
+# @api.errorhandler(404)
+# @api.errorhandler(405)
+# def _api_error(_error):
+#     if request.path.startswith('/calculatro/api/'):
+#         return jsonify({'code': _error.code, 'error': str(_error)})
+#     else:
+#         return _error
+#
+#
+# # equation solver
+# @api.route('/calculatro/api/solve/<equation>')
+# def solve_equation(equation):
+#     global evaluator
+#
+#     try:
+#         return jsonify(evaluator.solveEquation(equation, stringFormat=True))
+#     except Exception as error:
+#         return jsonify(error)
+#
+#
+# # function plotter
+# @api.route('/calculatro/api/plot/<function>&<start>&<end>')
+# def plot_function(function, start, end):
+#     global evaluator
+#
+#     try:
+#         return jsonify(evaluator.plot2d(func=function, xrange=(start, end)))
+#     except Exception as error:
+#         return jsonify(error)
 
 
 """------------------------------------------------WEB-APPLICATION------------------------------------------------"""
@@ -89,9 +106,10 @@ def main():
 
     # redirect to different pages
     elif request.method == 'POST':
+        # redirecting to calculatro functions
         try:
-            if request.form['equation'] == 'EQUATIONS':
-                return redirect('/calculatro/solve-equation')
+            if request.form['maths'] == 'MATHEMATICS':
+                return redirect('/calculatro/maths')
         except BadRequestKeyError:
             ...
         try:
@@ -101,7 +119,7 @@ def main():
             ...
         try:
             if request.form['chemistry'] == 'CHEMISTRY':
-                return redirect('/calculatro/molecule-plotting')
+                return redirect('/calculatro/chemistry')
         except BadRequestKeyError:
             ...
         try:
@@ -111,7 +129,23 @@ def main():
             ...
         try:
             if request.form['text'] == 'TEXT':
-                return redirect('/calculatro/text-from-picture')
+                return redirect('/calculatro/text')
+        except BadRequestKeyError:
+            ...
+
+        try:
+            if request.form['login'] == 'LOGIN':
+                return redirect('/calculatro/login')
+        except BadRequestKeyError:
+            ...
+        try:
+            if request.form['register'] == 'REGISTER':
+                return redirect('/calculatro/register')
+        except BadRequestKeyError:
+            ...
+        try:
+            if request.form['help'] == 'HELP':
+                return redirect('/calculatro/help')
         except BadRequestKeyError:
             ...
 
@@ -119,12 +153,12 @@ def main():
 
 
 # equation solver
-@app.route('/calculatro/solve-equation', methods=['GET', 'POST'])
+@app.route('/calculatro/maths', methods=['GET', 'POST'])
 def solve():
     global evaluator, params
 
     if request.method == 'GET':
-        return render_template('equation.html', **params)
+        return render_template('maths.html', **params)
 
     elif request.method == 'POST':
         try:
@@ -137,19 +171,22 @@ def solve():
             if request.form['calculate'] == 'CALCULATE':
                 params['scobe'] = request.form['calc'].strip().replace('\n', '').replace('=', '==')
                 params['calculation_result'] = evaluator.evaluate(f"ToString[{params['scobe']}]")
-                return render_template('equation.html', **params)
+                return render_template('maths.html', **params)
         except BadRequestKeyError:
             ...
         try:
             if request.form['solve'] == 'SOLVE':
                 params['equation'] = request.form['expression'].strip().replace('\n', '').replace('=', '==')
-                params['equation_result'] = evaluator.\
-                    solveEquation(params['equation'], stringFormat=True).replace('{', '[').replace('}', ']')
-                return render_template('equation.html', **params)
+                try:
+                    params['equation_result'] = evaluator.\
+                        solveEquation(params['equation'], stringFormat=True).replace('{', '[').replace('}', ']')
+                except Exception:
+                    params['equation_result'] = 'error'
+                return render_template('maths.html', **params)
         except BadRequestKeyError:
             ...
 
-    return render_template('equation.html', **params)
+    return render_template('maths.html', **params)
 
 
 @app.route('/calculatro/plot-function', methods=['GET', 'POST'])
@@ -187,28 +224,161 @@ def plot():
                     evaluator.parametricPlot(func1=params['pfunction1'], func2=params['pfunction2'],
                                              urange=(params['ustart'], params['uend']),
                                              path='./static/images/parametric_graphic.png')
+                    params['pgraph'] = True
                 except Exception:
-                    ...
-                params['pgraph'] = True
+                    params['pgraph'] = False
         except BadRequestKeyError:
             ...
 
     return render_template('graphics.html', **params)
 
 
-@app.route('/calculatro/text-from-picture', methods=['GET', 'POST'])
-def get_text():
-    pass
+@app.route('/calculatro/chemistry', methods=['GET', 'POST'])
+def chemistry():
+    global evaluator, params
+
+    if request.method == 'GET':
+        return render_template('chemistry.html', **params)
+
+    elif request.method == 'POST':
+        try:
+            if request.form['back'] == 'BACK TO MAIN PAGE':
+                clear_params()
+                return redirect('/calculatro/main')
+        except BadRequestKeyError:
+            ...
+        try:
+            if request.form['balance'] == 'BALANCE':
+                params['reaction'] = request.form['reaction'].strip().replace('\n', '')
+                try:
+                    params['balanced'] = evaluator.reactionBalance(params['reaction']).replace('-->', '->')
+                except Exception:
+                    params['balanced'] = 'error'
+        except BadRequestKeyError:
+            ...
+        try:
+            if request.form['plot'] == 'PLOT':
+                params['molecule'] = request.form['molecule']
+                try:
+                    evaluator.moleculePlot(params['molecule'], './static/images/molecule.png')
+                    params['molecule_plot'] = True
+                except Exception:
+                    params['molecule_plot'] = False
+        except BadRequestKeyError:
+            ...
+
+    return render_template('chemistry.html', **params)
 
 
-@app.route('/calculatro/login')
+@app.route('/calculatro/text', methods=['GET', 'POST'])
+def text():
+    global params, evaluator
+
+    if request.method == 'GET':
+        return render_template('text.html', **params)
+
+    elif request.method == 'POST':
+        try:
+            if request.form['back'] == 'BACK TO MAIN PAGE':
+                clear_params()
+                return redirect('/calculatro/main')
+        except BadRequestKeyError:
+            ...
+        try:
+            if request.form['find'] == 'FIND ANSWER':
+                params['text'] = request.form['text']
+                params['question'] = request.form['question']
+                try:
+                    params['answer'] = evaluator.find_textural_answer(text=params['text'], question=params['question'])
+                except Exception:
+                    params['answer'] = 'error'
+        except BadRequestKeyError:
+            ...
+
+    return render_template('text.html', **params)
+
+
+@app.route('/calculatro/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    global usersDB, params
+
+    if request.method == 'GET':
+        return render_template('login.html')
+
+    elif request.method == 'POST':
+        try:
+            if request.form['back'] == 'BACK TO MAIN PAGE':
+                clear_params()
+                return redirect('/calculatro/main')
+        except BadRequestKeyError:
+            ...
+        try:
+            if request.form['login'] == 'LOGIN':
+                flag = None
+                eu = request.form['user'].strip()
+                if '@' not in eu:
+                    flag = 'user'
+                    params['username'] = eu
+                else:
+                    flag = 'email'
+                    params['email'] = eu
+                params['password'] = request.form['password'].strip()
+                result = False
+                try:
+                    if flag == 'email':
+                        result = usersDB.checkUserbyEmail(email=params['email'], password=params['password'])
+                    elif flag == 'user':
+                        result = usersDB.checkUserbyUsername(username=params['username'], password=params['password'])
+                except UnknownUserError:
+                    return render_template('login.html', **params)
+                except WrongPassword:
+                    return render_template('login.html', **params)
+                if result:
+                    clear_params()
+                    return redirect('/calculatro/main')
+        except BadRequestKeyError:
+            ...
+
+@app.route('/calculatro/register', methods=['GET', 'POST'])
+def register():
+    global usersDB, params
+
+    if request.method == 'GET':
+        return render_template('register.html')
+
+    elif request.method == 'POST':
+        try:
+            if request.form['back'] == 'BACK TO MAIN PAGE':
+                clear_params()
+                return redirect('/calculatro/main')
+        except BadRequestKeyError:
+            ...
+        try:
+            if request.form['register'] == 'REGISTER':
+                params['email'] = request.form['email'].strip()
+                params['username'] = request.form['username'].strip()
+                params['password'] = request.form['password'].strip()
+                if params['password'] != request.form['confirm'].strip():
+                    return render_template('register.html', **params)
+                else:
+                    try:
+                        usersDB.addUser(email=params['email'], username=params['username'], password=params['password'])
+                        return redirect('/calculatro/main')
+                    except UserAlreadyExistsError:
+                        ...
+        except BadRequestKeyError:
+            ...
+
+    return render_template('register.html', **params)
 
 
-@app.route('/calculatro/help')
-def login():
-    return render_template('help.html')
+@app.route('/calculatro/help', methods=['GET', 'POST'])
+def tutor():
+    if request.method == 'GET':
+        return render_template('help.html')
+
+    if request.method == 'POST':
+        return redirect('/calculatro/main')
 
 
 """------------------------------------------------------START-----------------------------------------------------"""

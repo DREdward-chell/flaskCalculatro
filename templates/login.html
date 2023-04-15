@@ -10,18 +10,18 @@
     <h2>Login</h2>
     <form>
         <div class="text-input">
-            <input type="text" name="user" required="required" title="">
+            <input type="text" name="user" required="required" title="" value={{ eu }}>
             <label>Username or email</label>
         </div>
         <div class="text-input">
-            <input type="password" name="key" required="required" title="">
+            <input type="password" name="password" required="required" title="" value={{ password }}>
             <label>Password</label>
         </div>
-        <input type="submit" value="Submit" class="submit-button">
+        <input type="submit" name="login" value="LOGIN" class="submit-button">
     </form>
 </div>
 <div class="web-element" style="width: fit-content; margin-top: 50px">
-    <form class="solver-box" action="/calculatro/solve-equation" method="post" style="width: fit-content; alignment: left">
+    <form class="solver-box" action="/calculatro/login" method="post" style="width: fit-content; alignment: left">
         <div class="submit-button">
             <input type="submit" name="back" value="BACK TO MAIN PAGE" formmethod="post" style="margin-top: 0px">
         </div>

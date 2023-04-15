@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/base.css') }}>
+    <link rel="stylesheet" type="text/css" href={{ url_for('static', filename='css/maths.css') }}>
+    <title>Calculatro</title>
+</head>
+<body>
+<div class="web-element">
+    <form class="solver-box" action="/calculatro/maths" method="post">
+        <h2>CALCULATE</h2>
+        <div class="input-box" style="margin-top: 50px">
+            <textarea required="required" onkeyup="this.style.height='13px'; this.style.height = this.scrollHeight - 3 + 'px';" name="calc">{{ scobe }}</textarea>
+            <label>Expression</label>
+        </div>
+        <div style="margin-top: 50px">
+            <input type="submit" name="calculate" value="CALCULATE">
+        </div>
+        <div class="output">
+            <label>Result:</label>
+            <textarea onkeyup="this.style.height='16px'; this.style.height = this.scrollHeight + 'px';" readonly="readonly"
+            onfocus="this.style.height='13px'; this.style.height = this.scrollHeight + 20 + 'px';">{{ calculation_result }}</textarea>
+        </div>
+    </form>
+</div>
+<div class="web-element" style="margin-top: 50px">
+    <form class="solver-box" action="/calculatro/maths" method="post">
+        <h2>SOLVE EQUATION</h2>
+        <div class="input-box" style="margin-top: 50px">
+            <textarea required="required" onkeyup="this.style.height='13px'; this.style.height = this.scrollHeight - 3 + 'px';" name="expression">{{ equation }}</textarea>
+            <label>Equation</label>
+        </div>
+        <div style="margin-top: 50px">
+            <input type="submit" name="solve" value="SOLVE">
+        </div>
+        <div class="output">
+            <label>Result:</label>
+            <textarea onkeyup="this.style.height='13px'; this.style.height = this.scrollHeight + 20 + 'px';" readonly="readonly">{{ equation_result }}</textarea>
+        </div>
+    </form>
+</div>
+<div style="margin-top: 50px">
+    <form class="web-element" action="/calculatro/maths" method="post" style="width: fit-content; alignment: left">
+        <div>
+            <input type="submit" name="back" value="BACK TO MAIN PAGE">
+        </div>
+    </form>
+</div>
+</body>
+</html>

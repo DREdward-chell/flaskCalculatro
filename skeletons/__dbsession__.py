@@ -3,6 +3,11 @@ import typing
 
 Path = typing.TypeVar('Path', bound=typing.Callable[..., typing.Any])
 
+
+class UserAlreadyExistsError(Exception): ...
+class UnknownUserError(Exception): ...
+class WrongPassword(Exception): ...
+
 # users database manager
 class DBManager:
 
@@ -31,21 +36,31 @@ class DBManager:
 
     def select(self, values: str, table: str, where: str) -> any:
         return self.cursor.execute(f'SELECT {values} FROM {table} WHERE {where}').fetchall()
-        return
 
     def delete(self, fromTable: str, where: str) -> None:
         self.cursor.execute(f'DELETE FROM {fromTable} WHERE {where}')
+        return
 
     def commit(self):
         self.connection.commit()
+        return
 
 
 class UserManager(DBManager):
-    def __init__(self, datasource) -> None:
+    def __init__(self, datasource: Path) -> None:
         super().__init__(datasource=datasource)
         return
 
     def addUser(self, email: str, password: str, username: str) -> None:
+        flag = False
+        taken_email = self.select(values='USERNAME', table='USERS', where=f"EMAIL='{email}'")
+        taken_username = self.select(values='USERNAME', table='USERS', where='TRUE')
+        print(taken_username)
+        for i in taken_username:
+            if username in i:
+                flag = True
+        if flag or taken_email:
+            raise UserAlreadyExistsError
         self.insert(table='USERS', columns=('EMAIL', 'PASSWORD', 'USERNAME'),
                     values=(f"{email}", f"{password}", f"{username}"))
         return
@@ -62,3 +77,29 @@ class UserManager(DBManager):
     def changeUserPassword(self, username: str, password: str, newEmail: str) -> None:
         self.update(table='USERS', columns=('EMAIL',), values=(newEmail,),
                     where=f"USERNAME='{username}' AND PASSWORD='{password}'")
+
+    def checkUserbyEmail(self, email: str, password: str) -> bool:
+        flag = False
+        __emails__ = self.select(values='EMAIL', table='USERS', where='TRUE')
+        for i in __emails__:
+            if email in i:
+                flag = True
+        if not flag:
+            raise UnknownUserError
+        __password__ = self.select(values='PASSWORD', table='USERS', where=f"EMAIL='{email}'")[0][0]
+        if password != __password__:
+            raise WrongPassword
+        return True
+
+    def checkUserbyUsername(self, username: str, password: str) -> bool:
+        flag = False
+        __names__ = self.select(values='EMAIL', table='USERS', where='TRUE')
+        for i in __names__:
+            if username in i:
+                flag = True
+        if not flag:
+            raise UnknownUserError
+        __password__ = self.select(values='PASSWORD', table='USERS', where=f"USERNAME='{username}'")[0][0]
+        if password != __password__:
+            raise WrongPassword
+        return True
